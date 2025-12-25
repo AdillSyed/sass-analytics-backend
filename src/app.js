@@ -2,6 +2,8 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import authRoutes from "./modules/auth/auth.routes.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import userRoutes from "./modules/users/users.routes.js";
+import organizationRoutes from "./modules/organizations/organizations.routes.js";
 
 const app = express();  // Initialize Express application.
 
@@ -22,6 +24,10 @@ app.get("/health", (req, res) => {
 
 // Auth routes
 app.use("/auth", authRoutes); // Mount auth routes at /auth
+
+// Organization routes
+app.use("/users", userRoutes);
+app.use("/organizations", organizationRoutes);
 
 
 /* ---------- Error Handling Middleware (last) ---------- */
