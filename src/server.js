@@ -1,6 +1,6 @@
-require("dotenv").config();  // Load environment variables from .env file.
+import "dotenv/config";  // Load environment variables from .env file.
 
-const app = require("./app");  // Import the Express application.
+import app from "./app.js";  // Import the Express application.
 
 const PORT = process.env.PORT || 5000;  // Use the PORT from environment variables or default to 5000.
 

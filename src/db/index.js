@@ -1,4 +1,4 @@
-const { Pool } = require("pg"); // Import the Pool class from the pg module.
+import { Pool } from "pg"; // Import the Pool class from the pg module.
 
 // A connection pool maintains multiple reusable database connections.
 // so every request doesn’t open and close a new one. 
@@ -14,4 +14,4 @@ pool.on("connect", () => {  // Log when connected to the database.
   console.log("PostgreSQL connected");
 });
 
-module.exports = pool;  // Export the pool for use in other parts of the application.
+export default pool;  // Export the pool for use in other parts of the application.

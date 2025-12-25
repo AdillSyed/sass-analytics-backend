@@ -1,21 +1,31 @@
-const express = require("express");
+import express from "express";
+import cookieParser from "cookie-parser";
+import authRoutes from "./modules/auth/auth.routes.js";
+import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const app = express();  // Initialize Express application.
 
-app.use(express.json());  // Middleware to parse JSON request bodies.
+/* ---------- Global Middlewares ---------- */
+
+// Parse JSON bodies
+app.use(express.json());
+
+// Parse cookies (required for JWT cookies)
+app.use(cookieParser());
+
+/* ---------- Routes ---------- */
 
 // Health check endpoint
-
 app.get("/health", (req, res) => {
   res.json({ status: "OK" });
 });
 
-const pool = require("./db");
-
-app.get("/db-test", async (req, res) => {
-  const result = await pool.query("SELECT NOW()");
-  res.json(result.rows[0]);
-});
+// Auth routes
+app.use("/auth", authRoutes); // Mount auth routes at /auth
 
 
-module.exports = app;  // Export the app for use in other parts of the application.
+/* ---------- Error Handling Middleware (last) ---------- */
+app.use(errorMiddleware); // Handle errors globally
+
+
+export default app; // Export the app to use in other parts of the application.
